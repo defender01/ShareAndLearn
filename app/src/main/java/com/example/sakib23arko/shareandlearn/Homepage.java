@@ -32,13 +32,12 @@ import java.util.Collections;
 public class Homepage extends AppCompatActivity {
 
 
-    private Button createNewPostButton, myProfileButton;
+    private Button createNewPostButton;
     ArrayList<infoOfUser> userlist;
     ListView ListUserView;
     Bundle bundle;
     TextView continueReading;
     DatabaseReference userDatabase;
-    private Button signoutButton;
     private FirebaseAuth mAuth;
 
     private ListView mDrawerList;
@@ -65,22 +64,11 @@ public class Homepage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        myProfileButton = findViewById(R.id.myProfileButtonId);
         createNewPostButton = findViewById(R.id.CreateNewPostID);
-        signoutButton = findViewById(R.id.signoutButtonID);
         userlist = new ArrayList<>();
         ListUserView = findViewById(R.id.ListUserViewID);
         continueReading = findViewById(R.id.continueReadingid);
 
-        signoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                Toast.makeText(Homepage.this,"You have signout",Toast.LENGTH_LONG).show();
-                finish();
-                startActivity(new Intent(Homepage.this,MainActivity.class));
-            }
-        });
 
 
         ListUserView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,12 +90,6 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        myProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Homepage.this, userProfile.class));
-            }
-        });
 
         createNewPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,14 +137,6 @@ public class Homepage extends AppCompatActivity {
         CustomAdapter customAdapter = new CustomAdapter(this, uNameAndImages);
         mDrawerList.setAdapter(customAdapter);
 
-        TextView homeID = findViewById(R.id.HomeID);
-
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(Homepage.this, userImage , Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
 

@@ -20,6 +20,7 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
     private Context context;
     private List<infoOfUser> infoList;
     private int pos;
+    private String vis;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -54,7 +55,10 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
                     intent.putExtra("UID", itemClicked.getUserUid());
                     intent.putExtra("Name", itemClicked.getUserName());
                     intent.putExtra("PostID", itemClicked.getPostID());
-                    intent.putExtra("vis", "edit");
+                    if(vis.equals("from SelectedTags"))
+                        intent.putExtra("vis", "no edit");
+                    else
+                        intent.putExtra("vis", "edit");
                     Log.d("postt", "userPostAdapter "+itemClicked.postID + "  " + itemClicked.title + " " + itemClicked.description);
                     context.startActivity(intent);
                 }
@@ -67,6 +71,7 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
     public userPostAdapter(Context context, List<infoOfUser> infoList) {
         this.context = context;
         this.infoList = infoList;
+        vis="";
     }
 
     // Create new views (invoked by the layout manager)
@@ -102,5 +107,10 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
     @Override
     public int getItemCount() {
         return infoList.size();
+    }
+
+    public void setVis(String vis)
+    {
+        this.vis=vis;
     }
 }

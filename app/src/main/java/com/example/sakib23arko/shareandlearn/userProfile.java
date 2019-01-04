@@ -60,6 +60,7 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
     private String profileImageUrl;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
     private RecyclerView userProfileRecyclerView;
     private RecyclerView.Adapter userProfileAdapter;
     private RecyclerView.LayoutManager userProfileLayoutManager;
