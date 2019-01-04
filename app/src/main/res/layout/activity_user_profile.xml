@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sakib23arko.shareandlearn.userProfile"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#093d5b">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:id="@+id/userImageViewId"
+            android:layout_marginTop="60dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/rahat"
+            />
+        <ProgressBar
+            android:id="@+id/progressBarUserProfileImageId"
+            android:layout_marginTop="110dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/addChangePhotoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add or change photo"
+        android:textAllCaps="false"
+        android:textColor="#0c52c1"/>
+    <EditText
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:id="@+id/userNameProfileId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter user name"/>
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/saveUserProfileId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="#070e3b"
+        android:text="SAVE"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#77867e"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp">
+        </View>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/userProfileRecyclerViewID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
+
+    <ListView
+        android:id="@+id/navList"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:background="#ffeeeeee"/>
+
+</android.support.v4.widget.DrawerLayout>

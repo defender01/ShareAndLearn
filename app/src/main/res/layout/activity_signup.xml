@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".SignupActivity">
+
+
+    <EditText
+        android:id="@+id/emailSignupId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="30dp"
+        android:autofillHints=""
+
+        android:backgroundTint="@color/pink"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+
+        android:textColor="@color/Tia_color"
+        android:textCursorDrawable="@color/colorAccent"
+
+        android:textSize="15sp"
+
+
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/passwordSignupId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="10dp"
+
+        android:layout_marginEnd="30dp"
+        android:autofillHints=""
+
+        android:backgroundTint="@color/pink"
+        android:hint="@string/passHint"
+        android:inputType="textPassword"
+
+        android:textColor="@color/Tia_color"
+        android:textCursorDrawable="@color/colorAccent"
+
+        android:textSize="15sp"
+
+        android:textStyle="bold"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/signupButtonIdSignupPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+
+        android:background="@color/buttoncolor1"
+        android:gravity="center"
+        android:text="@string/sign_up"
+        android:textColor="#ffffff"
+
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+    <ProgressBar
+        android:id="@+id/progressBarSignupId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>

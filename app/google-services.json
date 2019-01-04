@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "797996631060",
+    "firebase_url": "https://shareandlearn-d3a2b.firebaseio.com",
+    "project_id": "shareandlearn-d3a2b",
+    "storage_bucket": "shareandlearn-d3a2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797996631060:android:443278f0e16f4e7c",
+        "android_client_info": {
+          "package_name": "com.example.sakib23.sharelearn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797996631060-vp65b2nacmsh7oadhnjirlim0njklmkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sakib23.sharelearn",
+            "certificate_hash": "337d42ecfd920f5cdad9b8955c6732bb568a516d"
+          }
+        },
+        {
+          "client_id": "797996631060-soj1amjc4cqfc2eqlfj6a6qcguv578i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr-Wakgd-nSwZiDWPPNW6M59rIH9pwJNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797996631060-soj1amjc4cqfc2eqlfj6a6qcguv578i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797996631060:android:ca4ba4cee9947c96",
+        "android_client_info": {
+          "package_name": "com.example.sakib23arko.shareandlearn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797996631060-soj1amjc4cqfc2eqlfj6a6qcguv578i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr-Wakgd-nSwZiDWPPNW6M59rIH9pwJNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

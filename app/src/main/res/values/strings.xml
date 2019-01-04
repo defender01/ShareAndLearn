@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Share &amp; Learn</string>
+    <string name="emailHint"> Username or Email </string>
+    <string name="passHint"> Password </string>
+    <string name="log"> LOG IN </string>
+    <string name="google">LOG IN WITH GOOGLE</string>
+    <string name="facebook">LOG IN WITH FACEBOOK</string>
+    <string name="sign_up">Sign up</string>
+    <string name="don_t_have_an_account">Don\'t Have An Account?</string>
+    <string name="or">OR</string>
+    <string name="login_with_google">LOGIN WITH GOOGLE</string>
+    <string name="CreateNewPost">Create New post</string>
+    <string name="spin">Select Tag</string>
+
+    <string name="http">http://</string>
+    <string name="download">Download</string>
+    <string name="write_file">This app needs access to your file storage so that it can write files.</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="items">
+        <item>Choose a tag...</item>
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
+    </string-array>
+
+
+    <string-array name="Tags">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
+        <item>Item 6</item>
+        <item>Item 7</item>
+        <item>Item 8</item>
+        <item>Item 9</item>
+        <item>Item 10</item>
+        <item>Item 11</item>
+        <item>Item 12</item>
+        <item>Item 13</item>
+        <item>Item 14</item>
+        <item>Item 15</item>
+        <item>Item 16</item>
+        <item>Item 17</item>
+        <item>Item 18</item>
+        <item>Item 19</item>
+        <item>Item 20</item>
+    </string-array>
+</resources>
