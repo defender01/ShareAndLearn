@@ -124,6 +124,7 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
 
                 // specify an adapter (see also next example)
                 userProfileAdapter = new userPostAdapter(userProfile.this,userlist);
+                ((userPostAdapter) userProfileAdapter).setVis("from userProfile");
                 userProfileRecyclerView.setAdapter(userProfileAdapter);
 
             }

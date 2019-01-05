@@ -55,11 +55,11 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
                     intent.putExtra("UID", itemClicked.getUserUid());
                     intent.putExtra("Name", itemClicked.getUserName());
                     intent.putExtra("PostID", itemClicked.getPostID());
-                    if(vis.equals("from SelectedTags"))
-                        intent.putExtra("vis", "no edit");
-                    else
+                    if (vis.equals("from userProfile"))
                         intent.putExtra("vis", "edit");
-                    Log.d("postt", "userPostAdapter "+itemClicked.postID + "  " + itemClicked.title + " " + itemClicked.description);
+                    else
+                        intent.putExtra("vis", "no edit");
+                    Log.d("postt", "userPostAdapter " + itemClicked.postID + "  " + itemClicked.title + " " + itemClicked.description);
                     context.startActivity(intent);
                 }
             });
@@ -71,7 +71,7 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
     public userPostAdapter(Context context, List<infoOfUser> infoList) {
         this.context = context;
         this.infoList = infoList;
-        vis="";
+        vis = "";
     }
 
     // Create new views (invoked by the layout manager)
@@ -90,8 +90,16 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
 
         pos = position;
         final infoOfUser currentInfo = infoList.get(position);
+
+        String showDescription = "", realDescription = currentInfo.getDescription();
+
+        for (int i = 0; i < Math.min(200, realDescription.length()); i++)
+            showDescription += realDescription.charAt(i);
+
+        if(realDescription.length()>200)showDescription+="...";
+
         holder.textViewDateTime.setText(currentInfo.getDateTime());
-        holder.textViewDescription.setText(currentInfo.getDescription());
+        holder.textViewDescription.setText(showDescription);
         holder.textViewTitle.setText(currentInfo.getTitle());
         holder.textViewUserName.setText(currentInfo.getUserName());
 
@@ -109,8 +117,7 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
         return infoList.size();
     }
 
-    public void setVis(String vis)
-    {
-        this.vis=vis;
+    public void setVis(String vis) {
+        this.vis = vis;
     }
 }

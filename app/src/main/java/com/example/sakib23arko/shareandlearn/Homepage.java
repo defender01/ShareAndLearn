@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,16 +30,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Homepage extends AppCompatActivity {
 
 
     private Button createNewPostButton;
-    ArrayList<infoOfUser> userlist;
-    ListView ListUserView;
+
     Bundle bundle;
     TextView continueReading;
-    DatabaseReference userDatabase;
     private FirebaseAuth mAuth;
 
     private ListView mDrawerList;
@@ -47,11 +48,17 @@ public class Homepage extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private RecyclerView homepageRecyclerView;
+    private RecyclerView.Adapter homepageAdapter;
+    private RecyclerView.LayoutManager homepageLayoutManager;
+    private DatabaseReference userDatabaseRef;
+    private List<infoOfUser> userlist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        userDatabase = FirebaseDatabase.getInstance().getReference("USER");
+        userDatabaseRef = FirebaseDatabase.getInstance().getReference("USER");
         mAuth=FirebaseAuth.getInstance();
 
         mDrawerList = (ListView)findViewById(R.id.navList); // List View Ta
@@ -66,26 +73,34 @@ public class Homepage extends AppCompatActivity {
 
         createNewPostButton = findViewById(R.id.CreateNewPostID);
         userlist = new ArrayList<>();
-        ListUserView = findViewById(R.id.ListUserViewID);
         continueReading = findViewById(R.id.continueReadingid);
 
 
-
-        ListUserView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //this is for recycler view of user post collection
+        homepageRecyclerView = findViewById(R.id.homepageRecyclerViewID);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        homepageRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        homepageLayoutManager = new LinearLayoutManager(this);
+        homepageRecyclerView.setLayoutManager(homepageLayoutManager);
+        userDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                Intent intent = new Intent(Homepage.this, PostDetails.class);
-                infoOfUser itemClicked = userlist.get(position);
-                intent.putExtra("Title", itemClicked.getTitle());
-                intent.putExtra("Timee", itemClicked.getDateTime());
-                intent.putExtra("Description", itemClicked.getDescription());
-                intent.putExtra("Chosen",itemClicked.getchosenFileUrl());
-                intent.putExtra("Ext",itemClicked.getExt());
-                intent.putExtra("UID",itemClicked.getUserUid());
-                intent.putExtra("Name",itemClicked.getUserName());
-                intent.putExtra("vis","0");
-                Log.d("ppppp",itemClicked.getchosenFileUrl());
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userlist.clear();
+                for (DataSnapshot X : dataSnapshot.getChildren()) {
+                    userlist.add(0, X.getValue(infoOfUser.class));
+                }
+
+                // specify an adapter (see also next example)
+                homepageAdapter = new userPostAdapter(Homepage.this,userlist);
+                ((userPostAdapter) homepageAdapter).setVis("from homepage");
+                homepageRecyclerView.setAdapter(homepageAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -110,25 +125,6 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        userDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userlist.clear();
-                for (DataSnapshot X : dataSnapshot.getChildren()) {
-                    userlist.add(X.getValue(infoOfUser.class));
-                }
-                Collections.reverse(userlist);
-                UserList adapter = new UserList(Homepage.this, userlist);
-                ListUserView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        });
-    }
     private void addDrawerItems() {
         String UserName = mAuth.getCurrentUser().getDisplayName();
         final String userImage = mAuth.getCurrentUser().getUid();
