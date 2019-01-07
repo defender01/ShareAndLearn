@@ -89,9 +89,9 @@ public class Homepage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userlist.clear();
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
-                    userlist.add(0, X.getValue(infoOfUser.class));
+                    userlist.add(X.getValue(infoOfUser.class));
                 }
-
+                Collections.reverse(userlist);
                 // specify an adapter (see also next example)
                 homepageAdapter = new userPostAdapter(Homepage.this,userlist);
                 ((userPostAdapter) homepageAdapter).setVis("from homepage");

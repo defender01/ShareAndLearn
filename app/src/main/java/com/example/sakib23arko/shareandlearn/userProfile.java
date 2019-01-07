@@ -45,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -119,8 +120,9 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
                 userlist.clear();
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
                     if(X.getValue(infoOfUser.class).getUserUid().equals(user.getUid()))
-                        userlist.add(0, X.getValue(infoOfUser.class));
+                        userlist.add( X.getValue(infoOfUser.class));
                 }
+                Collections.reverse(userlist);
 
                 // specify an adapter (see also next example)
                 userProfileAdapter = new userPostAdapter(userProfile.this,userlist);

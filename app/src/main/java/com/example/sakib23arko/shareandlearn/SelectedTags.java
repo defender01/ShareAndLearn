@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SelectedTags extends AppCompatActivity {
@@ -57,9 +58,9 @@ public class SelectedTags extends AppCompatActivity {
                 userlist.clear();
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
                     if(X.getValue(infoOfUser.class).getTag().equals(SelectedTagName))
-                        userlist.add(0, X.getValue(infoOfUser.class));
+                        userlist.add( X.getValue(infoOfUser.class));
                 }
-
+                Collections.reverse(userlist);
                 // specify an adapter (see also next example)
                 SelectedTagsAdapter = new userPostAdapter(SelectedTags.this,userlist);
                 ((userPostAdapter) SelectedTagsAdapter).setVis("from SelectedTags");
