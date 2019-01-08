@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,10 +60,10 @@ public class Homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("USER");
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-        mDrawerList = (ListView)findViewById(R.id.navList); // List View Ta
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.navList); // List View Ta
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
         uNameAndImages = new ArrayList<>();
         addDrawerItems();
@@ -74,8 +75,6 @@ public class Homepage extends AppCompatActivity {
         createNewPostButton = findViewById(R.id.CreateNewPostID);
         userlist = new ArrayList<>();
         continueReading = findViewById(R.id.continueReadingid);
-
-
         //this is for recycler view of user post collection
         homepageRecyclerView = findViewById(R.id.homepageRecyclerViewID);
         // use this setting to improve performance if you know that changes
@@ -93,7 +92,7 @@ public class Homepage extends AppCompatActivity {
                 }
                 Collections.reverse(userlist);
                 // specify an adapter (see also next example)
-                homepageAdapter = new userPostAdapter(Homepage.this,userlist);
+                homepageAdapter = new userPostAdapter(Homepage.this, userlist);
                 ((userPostAdapter) homepageAdapter).setVis("from homepage");
                 homepageRecyclerView.setAdapter(homepageAdapter);
 
@@ -113,13 +112,13 @@ public class Homepage extends AppCompatActivity {
                 intent.putExtra("Title", "");
                 intent.putExtra("Timee", "");
                 intent.putExtra("Description", "");
-                intent.putExtra("Tag","");
-                intent.putExtra("Chosen","");
-                intent.putExtra("Ext","");
-                intent.putExtra("UID","");
-                intent.putExtra("Name","");
-                intent.putExtra("PostID","");
-                intent.putExtra("vis","From Homepage");
+                intent.putExtra("Tag", "");
+                intent.putExtra("Chosen", "");
+                intent.putExtra("Ext", "");
+                intent.putExtra("UID", "");
+                intent.putExtra("Name", "");
+                intent.putExtra("PostID", "");
+                intent.putExtra("vis", "From Homepage");
                 startActivity(intent);
             }
         });
@@ -174,8 +173,12 @@ public class Homepage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) { return true; }
-        if (mDrawerToggle.onOptionsItemSelected(item)) { return true; }
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

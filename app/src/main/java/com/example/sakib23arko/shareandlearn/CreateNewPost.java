@@ -82,6 +82,8 @@ public class CreateNewPost extends AppCompatActivity {
         postID= getIntent().getStringExtra("PostID");
         vis=getIntent().getStringExtra("vis");
 
+
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         chosenFileUrl="";

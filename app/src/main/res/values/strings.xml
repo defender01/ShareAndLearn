@@ -32,25 +32,21 @@
 
 
     <string-array name="Tags">
-        <item>Item 1</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
-        <item>Item 4</item>
-        <item>Item 5</item>
-        <item>Item 6</item>
-        <item>Item 7</item>
-        <item>Item 8</item>
-        <item>Item 9</item>
-        <item>Item 10</item>
-        <item>Item 11</item>
-        <item>Item 12</item>
-        <item>Item 13</item>
-        <item>Item 14</item>
-        <item>Item 15</item>
-        <item>Item 16</item>
-        <item>Item 17</item>
-        <item>Item 18</item>
-        <item>Item 19</item>
-        <item>Item 20</item>
+        <item>"Android Application Development"</item>
+        <item>"Chemistry"</item>
+        <item>"Computer Science and Engineering"</item>
+        <item>"Deep Web"</item>
+        <item>"Electrical Engineering"</item>
+        <item>"Fashion and Styles"</item>
+        <item>"Food"</item>
+        <item>"Internet Service Providers"</item>
+        <item>"Internet of Things"</item>
+        <item>"Mechine Learning"</item>
+        <item>"Physics"</item>
+        <item>"Science of Everyday Life"</item>
+        <item>"Silicon Valey"</item>
+        <item>"Technology Startups"</item>
+        <item>"Technology"</item>
+        <item>"The Inernet"</item>
     </string-array>
 </resources>
