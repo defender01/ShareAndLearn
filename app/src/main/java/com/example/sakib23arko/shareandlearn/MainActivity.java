@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v.getId()==R.id.loginFacebookId){
-
+            finish();
+            startActivity(new Intent(MainActivity.this,LoginWithFacebook.class));
         }
     }
 }
