@@ -223,7 +223,7 @@ public class CreateNewPost extends AppCompatActivity {
 
             //check if its a new post or previous edit post
             if(vis.equals("From Homepage"))
-            postID = userInfoDatabase.push().getKey();
+                postID = userInfoDatabase.push().getKey();
 
             Toast.makeText(CreateNewPost.this, chosenFileUrl, Toast.LENGTH_LONG).show();
 

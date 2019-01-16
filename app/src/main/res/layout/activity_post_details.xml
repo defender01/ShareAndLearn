@@ -42,18 +42,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ProjectTitle"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/postDetailsEditPostID"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Edit Post"
                         android:layout_marginEnd="10dp"
+                        android:text="Edit Post"
                         android:textAlignment="viewEnd"
                         android:textColor="#0e3dca"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -109,6 +108,59 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#77867e"
+                android:paddingBottom="10dp">
+
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/LikeID"
+                    android:src="@drawable/like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 Likes"
+                    android:paddingTop="12dp"
+                    android:paddingStart="9dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:paddingStart="9dp"
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comment : "
+                    />
+                <EditText
+                    android:id="@+id/CommentID"
+                    android:paddingEnd="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>
