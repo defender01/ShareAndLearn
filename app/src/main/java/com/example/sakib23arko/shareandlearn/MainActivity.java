@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this,SignupActivity.class));
         }
         if(v.getId()==R.id.loginGoogleId){
+            finish();
+            startActivity(new Intent(MainActivity.this,LoginWithGoogle.class));
 
         }
         if(v.getId()==R.id.loginFacebookId){
