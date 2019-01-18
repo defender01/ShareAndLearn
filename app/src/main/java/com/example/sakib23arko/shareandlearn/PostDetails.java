@@ -177,7 +177,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
 
             }
         });
-
+//like added
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
