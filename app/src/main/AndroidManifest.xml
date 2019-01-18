@@ -48,6 +48,8 @@
         <activity android:name=".PostDetails" />
         <activity android:name=".TagNames" />
         <activity android:name=".SelectedTags" />
+        <activity android:name=".profileDetails" />
+        <activity android:name=".topic_selection"></activity>
     </application>
 
 </manifest>

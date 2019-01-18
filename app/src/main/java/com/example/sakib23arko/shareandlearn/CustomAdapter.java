@@ -54,6 +54,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView viewProfile = convertView.findViewById(R.id.ViewProfileID);
         TextView signoutButton = convertView.findViewById(R.id.LogOutID);
         TextView tagNameID = convertView.findViewById(R.id.TagsID);
+        TextView editProfile=convertView.findViewById(R.id.editProfileID);
         tagNameID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,13 @@ public class CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, userProfile.class));
+            }
+        });
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context,profileDetails.class));
             }
         });
         signoutButton.setOnClickListener(new View.OnClickListener() {

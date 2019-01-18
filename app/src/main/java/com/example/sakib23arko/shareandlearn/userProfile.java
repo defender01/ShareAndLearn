@@ -54,7 +54,7 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
     private static final int PROFILE_IMAGE = 100;
     private ImageView userImage;
     private TextView addChange;
-    private EditText userName;
+    private TextView userName;
     private Button saveButton;
     private Uri uriProfileImage;
     private ProgressBar progressBarUserProfileImage;
@@ -106,12 +106,8 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
         //--//
 
 
-        //this is for recycler view of user post collection
         userProfileRecyclerView = findViewById(R.id.userProfileRecyclerViewID);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         userProfileRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
         userProfileLayoutManager = new LinearLayoutManager(this);
         userProfileRecyclerView.setLayoutManager(userProfileLayoutManager);
         userDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -124,7 +120,6 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
                 }
                 Collections.reverse(userlist);
 
-                // specify an adapter (see also next example)
                 userProfileAdapter = new userPostAdapter(userProfile.this,userlist);
                 ((userPostAdapter) userProfileAdapter).setVis("from userProfile");
                 userProfileRecyclerView.setAdapter(userProfileAdapter);
@@ -142,7 +137,7 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
 
         userImage = (ImageView) findViewById(R.id.userImageViewId);
         addChange = (TextView) findViewById(R.id.addChangePhotoId);
-        userName = (EditText) findViewById(R.id.userNameProfileId);
+        userName = (TextView) findViewById(R.id.userNameProfileId);
         saveButton = (Button) findViewById(R.id.saveUserProfileId);
         progressBarUserProfileImage = (ProgressBar) findViewById(R.id.progressBarUserProfileImageId);
 
@@ -271,17 +266,10 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
     }
 
     private void saveUserInformation() {
-        String name = userName.getText().toString();
-        if (name.isEmpty()) {
-            userName.setText("Please enter name");
-            userName.requestFocus();
-            return;
-        }
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
                     .setPhotoUri(Uri.parse(profileImageUrl))
                     .build();
             user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {

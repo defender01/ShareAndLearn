@@ -20,13 +20,13 @@ import java.util.List;
 
 public class SelectedTags extends AppCompatActivity {
 
+    private DatabaseReference userDatabaseRef;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
     private RecyclerView SelectedTagsRecyclerView;
     private RecyclerView.Adapter SelectedTagsAdapter;
     private RecyclerView.LayoutManager SelectedTagsLayoutManager;
-    private DatabaseReference userDatabaseRef;
     private List<infoOfUser> userlist;
 
     String SelectedTagName;

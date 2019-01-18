@@ -27,7 +27,6 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class userPostViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
 
         public TextView textViewTitle, textViewDescription, textViewDateTime, textViewUserName;
         public ImageView samplePostImageView;

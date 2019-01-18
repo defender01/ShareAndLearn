@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Homepage extends AppCompatActivity {
@@ -41,6 +43,7 @@ public class Homepage extends AppCompatActivity {
     Bundle bundle;
     TextView continueReading;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -52,20 +55,26 @@ public class Homepage extends AppCompatActivity {
     private RecyclerView homepageRecyclerView;
     private RecyclerView.Adapter homepageAdapter;
     private RecyclerView.LayoutManager homepageLayoutManager;
-    private DatabaseReference userDatabaseRef;
-    private List<infoOfUser> userlist;
+    private DatabaseReference userDatabaseRef, profileInfoDatabaseRef;
+    private List<infoOfUser> userlist,userListForShow;
+
+    String[] tagCollectoin;
+    private int found = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("USER");
+        profileInfoDatabaseRef = FirebaseDatabase.getInstance().getReference("userPersonalInfo");
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         mDrawerList = (ListView) findViewById(R.id.navList); // List View Ta
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
         uNameAndImages = new ArrayList<>();
+        tagCollectoin = getResources().getStringArray(R.array.Tags);
         addDrawerItems();
         setupDrawer();
 
@@ -74,6 +83,7 @@ public class Homepage extends AppCompatActivity {
 
         createNewPostButton = findViewById(R.id.CreateNewPostID);
         userlist = new ArrayList<>();
+        userListForShow=new ArrayList<>();
         continueReading = findViewById(R.id.continueReadingid);
         //this is for recycler view of user post collection
         homepageRecyclerView = findViewById(R.id.homepageRecyclerViewID);
@@ -87,15 +97,42 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userlist.clear();
+                userListForShow.clear();
+                Log.d("listttt", "cnt= " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
-                    userlist.add(X.getValue(infoOfUser.class));
+                    final infoOfUser info = X.getValue(infoOfUser.class);
+                    userlist.add(info);
                 }
-                Collections.reverse(userlist);
-                // specify an adapter (see also next example)
-                homepageAdapter = new userPostAdapter(Homepage.this, userlist);
-                ((userPostAdapter) homepageAdapter).setVis("from homepage");
-                homepageRecyclerView.setAdapter(homepageAdapter);
 
+                Collections.reverse(userlist);
+                final int noOfPost=userlist.size();
+                for(int i=0;i<userlist.size();i++){
+                    final int finalI = i;
+                    profileInfoDatabaseRef.child(user.getUid()).child("tagName").child(userlist.get(i).getTag()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            found++;
+                            if (dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("1"))
+                                userListForShow.add(userlist.get(finalI));
+
+                            Log.d("listttt", userlist.size() + " child of tag " + userlist.get(finalI).getTag() + " " + dataSnapshot.getValue().toString());
+                            Log.d("listttt", found + " " + userlist.get(finalI).postID + " " + userlist.get(finalI).title);
+
+                            if (found == noOfPost) {
+                                // specify an adapter (see also next example)
+                                Log.d("listttt","userlistForShow Size = "+userListForShow.size());
+                                homepageAdapter = new userPostAdapter(Homepage.this, userListForShow);
+                                ((userPostAdapter) homepageAdapter).setVis("from homepage");
+                                homepageRecyclerView.setAdapter(homepageAdapter);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
 
             @Override
@@ -142,6 +179,7 @@ public class Homepage extends AppCompatActivity {
                 getSupportActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu();
             }
+
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mActivityTitle);

@@ -64,16 +64,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:id="@+id/HomeID"
-            android:text="HOME"
+            android:text="Home"
             />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_margin="15dp"
             android:layout_height="wrap_content"
-            android:id="@+id/TagsID"
-            android:text="Tags"
+            android:layout_margin="15dp"
+            android:id="@+id/editProfileID"
+            android:text="Edit Profile"
             />
+
+        <TextView
+            android:id="@+id/TagsID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Tags" />
         <TextView
             android:layout_margin="15dp"
             android:layout_width="match_parent"

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sakib23arko.shareandlearn.topic_selection"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Your Topcis:"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="20sp"
+        android:textColor="#010315"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#1a34f4"
+        android:paddingBottom="10dp">
+
+    </View>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topicListViewId"
+        android:divider="#4272ec"
+        android:dividerHeight="2dp"
+        >
+
+    </ListView>
+
+
+
+</LinearLayout>
