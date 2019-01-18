@@ -12,12 +12,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -52,6 +60,14 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
     private String TitleName,TimeName,DescriptionName,TagName,downloadFileUrl,ext,userUid,userName,vis,postID;
     private Button downloadButton;
     private ImageView postUserPic;
+    private ImageButton like;
+    private TextView likeCount;
+
+    private DatabaseReference userDatabaseRef;
+    private FirebaseUser user;
+
+    private int cntLike;
+    private boolean isLiked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +92,11 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         postUserPic = findViewById(R.id.postDetailsProPicID);
         postDetailsUserName= findViewById(R.id.postDetaisTextViewUserID);
         editPost = findViewById(R.id.postDetailsEditPostID);
+        like=findViewById(R.id.LikeID);
+        likeCount=findViewById(R.id.likeCountId);
+
+        userDatabaseRef = FirebaseDatabase.getInstance().getReference("postLikes");
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         postDetailsUserName.setText(userName);
         PostTitle.setText(TitleName);
@@ -111,6 +132,65 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 intent.putExtra("vis","edit");
                 Log.d("postt", "PostDetails "+postID + "  " + TitleName + " " + DescriptionName);
                 startActivity(intent);
+            }
+        });
+
+        userDatabaseRef.child(postID).child("likeCount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0"))
+                    cntLike=0;
+                else
+                cntLike=Integer.parseInt(dataSnapshot.getValue().toString());
+                likeCount.setText(String.valueOf(cntLike)+" Likes");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0")){
+//                    cntLike++;
+//                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("1");
+//                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
+                    like.setImageResource(R.drawable.not_liked);
+                    isLiked=false;
+//                    likeCount.setText(String.valueOf(cntLike)+" Likes");
+                }
+                else{
+//                    cntLike--;
+//                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("0");
+//                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
+                    like.setImageResource(R.drawable.like);
+                    isLiked=true;
+//                    likeCount.setText(String.valueOf(cntLike)+" Likes");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isLiked){
+                    cntLike--;
+                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("0");
+                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
+                }
+                else {
+                    cntLike++;
+                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("1");
+                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
+                }
             }
         });
 
