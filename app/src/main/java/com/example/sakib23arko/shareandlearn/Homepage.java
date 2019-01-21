@@ -98,7 +98,6 @@ public class Homepage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userlist.clear();
                 userListForShow.clear();
-                Log.d("listttt", "cnt= " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
                     final infoOfUser info = X.getValue(infoOfUser.class);
                     userlist.add(info);
@@ -115,12 +114,9 @@ public class Homepage extends AppCompatActivity {
                             if (dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("1"))
                                 userListForShow.add(userlist.get(finalI));
 
-                            Log.d("listttt", userlist.size() + " child of tag " + userlist.get(finalI).getTag() + " " + dataSnapshot.getValue().toString());
-                            Log.d("listttt", found + " " + userlist.get(finalI).postID + " " + userlist.get(finalI).title);
 
                             if (found == noOfPost) {
                                 // specify an adapter (see also next example)
-                                Log.d("listttt","userlistForShow Size = "+userListForShow.size());
                                 homepageAdapter = new userPostAdapter(Homepage.this, userListForShow);
                                 ((userPostAdapter) homepageAdapter).setVis("from homepage");
                                 homepageRecyclerView.setAdapter(homepageAdapter);

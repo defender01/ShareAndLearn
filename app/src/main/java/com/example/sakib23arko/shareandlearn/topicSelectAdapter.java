@@ -91,7 +91,6 @@ public class topicSelectAdapter extends BaseAdapter {
             }
         });
 
-        Log.d("taaag","tag "+tags[position]+" "+tagcon[position]);
 
         checkedTextView.setOnClickListener(new View.OnClickListener() {
             @Override

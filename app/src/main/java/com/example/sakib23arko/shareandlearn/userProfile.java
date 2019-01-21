@@ -165,7 +165,6 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
                         .into(userImage);
-                Log.d("profilepic", user.getPhotoUrl().toString());
             }
             if (user.getDisplayName() != null) {
                 userName.setText(user.getDisplayName());

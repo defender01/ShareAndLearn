@@ -129,7 +129,8 @@ public class CreateNewPost extends AppCompatActivity {
                         "image/jpeg","image/bmp","image/gif","image/jpg","image/png",
                         "video/wav","video/mp4","video/x-flv","video/3gpp","video/quicktime","video/x-msvideo","video/x-ms-wmv",
                         "application/pdf",
-                        "application/zip"};
+                        "application/zip",
+                        "application/vnd.android.package-archive"};
 
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);

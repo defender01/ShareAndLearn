@@ -32,7 +32,6 @@ public class TagNames extends AppCompatActivity {
 
         final String[] TagName = getResources().getStringArray(R.array.Tags);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(TagNames.this, R.layout.sample_tag, R.id.TextViewID, TagName);
-        Log.d("tagtagtagtag", "sk");
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,7 +39,6 @@ public class TagNames extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TagNames.this, SelectedTags.class);
                 String SelectedTagName = TagName[position];
-                Log.d("ssss",SelectedTagName);
                 intent.putExtra("FoundTag", SelectedTagName);
                 startActivity(intent);
             }

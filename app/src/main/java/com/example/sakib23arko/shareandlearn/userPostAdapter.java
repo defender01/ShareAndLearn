@@ -59,7 +59,6 @@ public class userPostAdapter extends RecyclerView.Adapter<userPostAdapter.userPo
                         intent.putExtra("vis", "edit");
                     else
                         intent.putExtra("vis", "no edit");
-                    Log.d("postt", "userPostAdapter " + itemClicked.postID + "  " + itemClicked.title + " " + itemClicked.description);
                     context.startActivity(intent);
                 }
             });

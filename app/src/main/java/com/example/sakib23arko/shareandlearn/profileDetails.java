@@ -101,7 +101,6 @@ public class profileDetails extends AppCompatActivity implements View.OnClickLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()!=null){
                     university=dataSnapshot.getValue().toString();
-                    Log.d("univ","university= "+university);
                     universityTextView.setText(university);
                 }
             }

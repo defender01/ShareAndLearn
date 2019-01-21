@@ -236,7 +236,6 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Log.d(TAG, "Permission has been denied");
     }
 
     /**
@@ -309,7 +308,6 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                     // publishing the progress....
                     // After this onProgressUpdate will be called
                     publishProgress("" + (int) ((total * 100) / lengthOfFile));
-                    Log.d(TAG, "Progress: " + (int) ((total * 100) / lengthOfFile));
 
                     // writing data to file
                     output.write(data, 0, count);
