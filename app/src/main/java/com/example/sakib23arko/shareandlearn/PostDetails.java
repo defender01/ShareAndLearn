@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,13 +66,15 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
     private ImageView postUserPic;
     private ImageButton like;
     private TextView likeCount;
-
-    private DatabaseReference userDatabaseRef;
+    private EditText Comment;
+    private Button PostComment;
+    private DatabaseReference userDatabaseRef, commentRef;
     private FirebaseUser user;
-
     private int cntLike;
     private boolean isLiked;
-
+    private ListView commentListView;
+    ArrayList<String> Allcomments;
+    private String commentPostID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +100,14 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         editPost = findViewById(R.id.postDetailsEditPostID);
         like=findViewById(R.id.LikeID);
         likeCount=findViewById(R.id.likeCountId);
+        Comment = findViewById(R.id.CommentID);
+        PostComment = findViewById(R.id.PostCommentID);
+        Allcomments = new ArrayList<>();
+        commentListView = findViewById(R.id.commentListViewId);
 
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("postLikes");
         user = FirebaseAuth.getInstance().getCurrentUser();
+        commentRef = FirebaseDatabase.getInstance().getReference("postComments");
 
         postDetailsUserName.setText(userName);
         PostTitle.setText(TitleName);
@@ -135,13 +146,40 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
             }
         });
 
+        PostComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentPostID = commentRef.child(postID).push().getKey();
+                commentRef.child(postID).child(commentPostID).setValue(Comment.getText().toString());
+                finish();
+                startActivity(getIntent());
+            }
+        });
+        commentRef.child(postID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Allcomments.clear();
+                for (DataSnapshot X : dataSnapshot.getChildren()) {
+                    Allcomments.add(X.getValue().toString());
+                }
+                Toast.makeText(PostDetails.this, " " + Allcomments.size(), Toast.LENGTH_LONG).show();
+                ArrayAdapter arrayAdapter = new ArrayAdapter<String>(PostDetails.this, R.layout.sample_comments,R.id.SampleCommentTextID, Allcomments);
+                commentListView.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         userDatabaseRef.child(postID).child("likeCount").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0"))
                     cntLike=0;
                 else
-                cntLike=Integer.parseInt(dataSnapshot.getValue().toString());
+                    cntLike=Integer.parseInt(dataSnapshot.getValue().toString());
                 likeCount.setText(String.valueOf(cntLike)+" Likes");
             }
 
@@ -155,20 +193,12 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0")){
-//                    cntLike++;
-//                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("1");
-//                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
                     like.setImageResource(R.drawable.not_liked);
                     isLiked=false;
-//                    likeCount.setText(String.valueOf(cntLike)+" Likes");
                 }
                 else{
-//                    cntLike--;
-//                    userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("0");
-//                    userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
                     like.setImageResource(R.drawable.like);
                     isLiked=true;
-//                    likeCount.setText(String.valueOf(cntLike)+" Likes");
                 }
             }
 

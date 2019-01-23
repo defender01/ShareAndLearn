@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -159,11 +159,35 @@
                 <EditText
                     android:id="@+id/CommentID"
                     android:paddingEnd="25dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="8dp"
                     />
+
+                <Button
+                    android:id="@+id/PostCommentID"
+                    android:layout_width="78dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:text="Post"
+
+                    />
             </LinearLayout>
+
+
         </LinearLayout>
+
+
+        <ListView
+
+            android:listSelector="#17c6d9"
+            android:dividerHeight="2dp"
+            android:divider="#ff22"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/commentListViewId">
+
+        </ListView>
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>
