@@ -4,15 +4,26 @@ public class infoOfComment {
 
     String userID, mainComment;
     String userImage;
+    String timestamp;
 
     public infoOfComment() {
         userID = mainComment = userImage = "";
     }
 
-    public infoOfComment(String userID, String mainComment, String userImage) {
+
+    public infoOfComment(String userID, String mainComment, String userImage, String timestamp) {
         this.userID = userID;
         this.mainComment = mainComment;
         this.userImage = userImage;
+        this.timestamp = timestamp;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getUserImage() {

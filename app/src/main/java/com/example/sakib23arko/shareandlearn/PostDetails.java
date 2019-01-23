@@ -46,6 +46,8 @@ import java.net.URLConnection;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -151,10 +153,11 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         PostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String timeStamp = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
                 String UserName = user.getDisplayName();
                 final String userImage = user.getUid();
                 commentPostID = commentRef.child(postID).push().getKey();
-                commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userImage));
+                commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userImage, timeStamp));
                 finish();
                 startActivity(getIntent());
             }
@@ -166,17 +169,13 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 int cnt = 0;
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
                     final infoOfComment info = X.getValue(infoOfComment.class);
-//                    Toast.makeText(PostDetails.this,info.getMainComment(), Toast.LENGTH_LONG).show();
                     cnt++;
                     Allcomments.add(info);
                 }
-                Toast.makeText(PostDetails.this, " " + cnt, Toast.LENGTH_LONG).show();
-//                ArrayAdapter arrayAdapter = ;
-//                commentListView.setAdapter(arrayAdapter);
-
-
-               CommentAdapter commentAdapter = new CommentAdapter(PostDetails.this, Allcomments);
-               commentListView.setAdapter(commentAdapter);
+                Collections.reverse(Allcomments);
+                Toast.makeText(PostDetails.this, "Total " + cnt + " Comment(s).", Toast.LENGTH_LONG).show();
+                CommentAdapter commentAdapter = new CommentAdapter(PostDetails.this, Allcomments);
+                commentListView.setAdapter(commentAdapter);
             }
 
             @Override
