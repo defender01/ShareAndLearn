@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Share &amp; Learn</string>
     <string name="emailHint"> Username or Email </string>
     <string name="passHint"> Password </string>
