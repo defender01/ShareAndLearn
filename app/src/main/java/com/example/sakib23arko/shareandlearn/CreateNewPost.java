@@ -226,7 +226,7 @@ public class CreateNewPost extends AppCompatActivity {
             if(vis.equals("From Homepage"))
                 postID = userInfoDatabase.push().getKey();
 
-            Toast.makeText(CreateNewPost.this, chosenFileUrl, Toast.LENGTH_LONG).show();
+//            Toast.makeText(CreateNewPost.this, chosenFileUrl, Toast.LENGTH_LONG).show();
 
 
             infoOfUser userInfo = new infoOfUser(TitleName, DescriptionName, TagName, timeStamp,chosenFileUrl,ext,user.getUid(),user.getDisplayName(),postID);

@@ -73,7 +73,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
     private int cntLike;
     private boolean isLiked;
     private ListView commentListView;
-    ArrayList<String> Allcomments;
+    ArrayList<infoOfComment> Allcomments;
     private String commentPostID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +100,8 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         editPost = findViewById(R.id.postDetailsEditPostID);
         like=findViewById(R.id.LikeID);
         likeCount=findViewById(R.id.likeCountId);
+
+
         Comment = findViewById(R.id.CommentID);
         PostComment = findViewById(R.id.PostCommentID);
         Allcomments = new ArrayList<>();
@@ -149,8 +151,10 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         PostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String UserName = user.getDisplayName();
+                final String userImage = user.getUid();
                 commentPostID = commentRef.child(postID).push().getKey();
-                commentRef.child(postID).child(commentPostID).setValue(Comment.getText().toString());
+                commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userImage));
                 finish();
                 startActivity(getIntent());
             }
@@ -159,12 +163,20 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Allcomments.clear();
+                int cnt = 0;
                 for (DataSnapshot X : dataSnapshot.getChildren()) {
-                    Allcomments.add(X.getValue().toString());
+                    final infoOfComment info = X.getValue(infoOfComment.class);
+//                    Toast.makeText(PostDetails.this,info.getMainComment(), Toast.LENGTH_LONG).show();
+                    cnt++;
+                    Allcomments.add(info);
                 }
-                Toast.makeText(PostDetails.this, " " + Allcomments.size(), Toast.LENGTH_LONG).show();
-                ArrayAdapter arrayAdapter = new ArrayAdapter<String>(PostDetails.this, R.layout.sample_comments,R.id.SampleCommentTextID, Allcomments);
-                commentListView.setAdapter(arrayAdapter);
+                Toast.makeText(PostDetails.this, " " + cnt, Toast.LENGTH_LONG).show();
+//                ArrayAdapter arrayAdapter = ;
+//                commentListView.setAdapter(arrayAdapter);
+
+
+               CommentAdapter commentAdapter = new CommentAdapter(PostDetails.this, Allcomments);
+               commentListView.setAdapter(commentAdapter);
             }
 
             @Override

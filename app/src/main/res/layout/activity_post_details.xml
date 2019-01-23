@@ -174,7 +174,14 @@
                     />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#77867e"
+                android:paddingBottom="10dp">
 
+            </View>
         </LinearLayout>
 
 
@@ -182,9 +189,10 @@
 
             android:listSelector="#17c6d9"
             android:dividerHeight="2dp"
-            android:divider="#ff22"
+            android:divider="#3A6B9B"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="10dp"
             android:id="@+id/commentListViewId">
 
         </ListView>
