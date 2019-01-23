@@ -111,6 +111,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="10"
             android:orientation="vertical">
 
             <View
@@ -147,28 +148,28 @@
             </LinearLayout>
 
             <LinearLayout
+                android:weightSum="5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:paddingStart="9dp"
-                    android:paddingTop="8dp"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:paddingStart="5dp"
                     android:layout_height="wrap_content"
                     android:text="Comment : "
                     />
                 <EditText
                     android:id="@+id/CommentID"
-                    android:paddingEnd="25dp"
-                    android:layout_width="250dp"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
                     />
 
                 <Button
                     android:id="@+id/PostCommentID"
-                    android:layout_width="78dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right"
                     android:text="Post"
 
                     />

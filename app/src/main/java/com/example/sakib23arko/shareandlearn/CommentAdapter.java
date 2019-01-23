@@ -44,6 +44,7 @@ public class CommentAdapter extends BaseAdapter {
         String userName = arrayList.get(position).getUserID();
         String userImage = arrayList.get(position).getUserImage();
         String userComment = arrayList.get(position).getMainComment();
+        String commentTimeStamp = arrayList.get(position).getTimestamp();
 
         if(convertView == null) {
             layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -53,10 +54,10 @@ public class CommentAdapter extends BaseAdapter {
         imageView = convertView.findViewById(R.id.whoCommentedPicID);
         TextView NAME = convertView.findViewById(R.id.whoCommentedNameID);
         TextView COMMENT = convertView.findViewById(R.id.CommentID);
-
+        TextView TIMESTAMP = convertView.findViewById(R.id.timeStampID);
         NAME.setText(userName);
         COMMENT.setText(userComment);
-
+        TIMESTAMP.setText(commentTimeStamp);
         StorageReference userProfileImageRef = FirebaseStorage.getInstance().getReference("profilePictures/" + userImage + ".jpg");
         GlideApp.with(this.context)
                 .load(userProfileImageRef)
