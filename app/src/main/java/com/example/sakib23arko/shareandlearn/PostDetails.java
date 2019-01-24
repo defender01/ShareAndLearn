@@ -9,6 +9,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -54,16 +56,12 @@ import java.util.List;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
+public class PostDetails extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-
-
-
-public class PostDetails extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
-
-    private TextView PostTitle, PostTime, Postdetails,postDetailsUserName,editPost;
+    private TextView PostTitle, PostTime, Postdetails, postDetailsUserName, editPost;
     private static final int WRITE_REQUEST_CODE = 300;
     private static final String TAG = PostDetails.class.getSimpleName();
-    private String TitleName,TimeName,DescriptionName,TagName,downloadFileUrl,ext,userUid,userName,vis,postID;
+    private String TitleName, TimeName, DescriptionName, TagName, downloadFileUrl, ext, userUid, userName, vis, postID;
     private Button downloadButton;
     private ImageView postUserPic;
     private ImageButton like;
@@ -74,9 +72,15 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
     private FirebaseUser user;
     private int cntLike;
     private boolean isLiked;
-    private ListView commentListView;
+
+    private RecyclerView commentRecyclerView;
+    private RecyclerView.Adapter commentRecyclerViewAdapter;
+    private RecyclerView.LayoutManager commentLayoutManager;
+
+
     ArrayList<infoOfComment> Allcomments;
     private String commentPostID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,29 +89,28 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         TitleName = getIntent().getStringExtra("Title");
         TimeName = getIntent().getStringExtra("Timee");
         DescriptionName = getIntent().getStringExtra("Description");
-        TagName=getIntent().getStringExtra("Tag");
-        downloadFileUrl= getIntent().getStringExtra("Chosen");
-        ext= getIntent().getStringExtra("Ext");
+        TagName = getIntent().getStringExtra("Tag");
+        downloadFileUrl = getIntent().getStringExtra("Chosen");
+        ext = getIntent().getStringExtra("Ext");
         userUid = getIntent().getStringExtra("UID");
         userName = getIntent().getStringExtra("Name");
-        postID= getIntent().getStringExtra("PostID");
-        vis=getIntent().getStringExtra("vis");
+        postID = getIntent().getStringExtra("PostID");
+        vis = getIntent().getStringExtra("vis");
 
         PostTitle = findViewById(R.id.ProjectTitleID);
         PostTime = findViewById(R.id.TimeID);
         Postdetails = findViewById(R.id.InformationID);
-        downloadButton=findViewById(R.id.downloadButtonId);
+        downloadButton = findViewById(R.id.downloadButtonId);
         postUserPic = findViewById(R.id.postDetailsProPicID);
-        postDetailsUserName= findViewById(R.id.postDetaisTextViewUserID);
+        postDetailsUserName = findViewById(R.id.postDetaisTextViewUserID);
         editPost = findViewById(R.id.postDetailsEditPostID);
-        like=findViewById(R.id.LikeID);
-        likeCount=findViewById(R.id.likeCountId);
+        like = findViewById(R.id.LikeID);
+        likeCount = findViewById(R.id.likeCountId);
 
 
         Comment = findViewById(R.id.CommentID);
         PostComment = findViewById(R.id.PostCommentID);
         Allcomments = new ArrayList<>();
-        commentListView = findViewById(R.id.commentListViewId);
 
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("postLikes");
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -117,16 +120,16 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         PostTitle.setText(TitleName);
         PostTime.setText(TimeName);
         Postdetails.setText(DescriptionName);
-        if(downloadFileUrl.isEmpty())downloadButton.setText("No File ");
+        if (downloadFileUrl.isEmpty()) downloadButton.setText("No File ");
         else downloadButton.setText("Download File");
 
-        if(vis.equals("edit"))
+        if (vis.equals("edit"))
             editPost.setVisibility(View.VISIBLE);
 
         StorageReference userProfileImageRef = FirebaseStorage.getInstance().getReference("profilePictures/" + userUid + ".jpg");
 
 
-        GlideApp.with( getApplicationContext()/* context */)
+        GlideApp.with(getApplicationContext()/* context */)
                 .load(userProfileImageRef)
                 .into(postUserPic);
 
@@ -138,14 +141,14 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 intent.putExtra("Title", TitleName);
                 intent.putExtra("Timee", TimeName);
                 intent.putExtra("Description", DescriptionName);
-                intent.putExtra("Tag",TagName);
-                intent.putExtra("Chosen",downloadFileUrl);
-                intent.putExtra("Ext",ext);
-                intent.putExtra("UID",userUid);
-                intent.putExtra("Name",userName);
-                intent.putExtra("PostID",postID);
-                intent.putExtra("vis","edit");
-                Log.d("postt", "PostDetails "+postID + "  " + TitleName + " " + DescriptionName);
+                intent.putExtra("Tag", TagName);
+                intent.putExtra("Chosen", downloadFileUrl);
+                intent.putExtra("Ext", ext);
+                intent.putExtra("UID", userUid);
+                intent.putExtra("Name", userName);
+                intent.putExtra("PostID", postID);
+                intent.putExtra("vis", "edit");
+                Log.d("postt", "PostDetails " + postID + "  " + TitleName + " " + DescriptionName);
                 startActivity(intent);
             }
         });
@@ -155,13 +158,18 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
             public void onClick(View v) {
                 String timeStamp = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss").format(Calendar.getInstance().getTime());
                 String UserName = user.getDisplayName();
-                final String userImage = user.getUid();
+                final String userUid = user.getUid();
                 commentPostID = commentRef.child(postID).push().getKey();
-                commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userImage, timeStamp));
-                finish();
-                startActivity(getIntent());
+                commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userUid, timeStamp));
+//                finish();
+//                startActivity(getIntent());
             }
         });
+
+        commentRecyclerView = findViewById(R.id.commentRecyclerViewId);
+        commentRecyclerView.setHasFixedSize(true);
+        commentLayoutManager = new LinearLayoutManager(this);
+        commentRecyclerView.setLayoutManager(commentLayoutManager);
         commentRef.child(postID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -174,8 +182,10 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 }
                 Collections.reverse(Allcomments);
                 Toast.makeText(PostDetails.this, "Total " + cnt + " Comment(s).", Toast.LENGTH_LONG).show();
-                CommentAdapter commentAdapter = new CommentAdapter(PostDetails.this, Allcomments);
-                commentListView.setAdapter(commentAdapter);
+
+                commentRecyclerViewAdapter = new CommentAdapter(PostDetails.this, Allcomments);
+                commentRecyclerView.setAdapter(commentRecyclerViewAdapter);
+
             }
 
             @Override
@@ -184,14 +194,15 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
             }
         });
 
+
         userDatabaseRef.child(postID).child("likeCount").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0"))
-                    cntLike=0;
+                if (dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("0"))
+                    cntLike = 0;
                 else
-                    cntLike=Integer.parseInt(dataSnapshot.getValue().toString());
-                likeCount.setText(String.valueOf(cntLike)+" Likes");
+                    cntLike = Integer.parseInt(dataSnapshot.getValue().toString());
+                likeCount.setText(String.valueOf(cntLike) + " Likes");
             }
 
             @Override
@@ -203,13 +214,12 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()==null||dataSnapshot.getValue().toString().equals("0")){
+                if (dataSnapshot.getValue() == null || dataSnapshot.getValue().toString().equals("0")) {
                     like.setImageResource(R.drawable.not_liked);
-                    isLiked=false;
-                }
-                else{
+                    isLiked = false;
+                } else {
                     like.setImageResource(R.drawable.like);
-                    isLiked=true;
+                    isLiked = true;
                 }
             }
 
@@ -222,12 +232,11 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isLiked){
+                if (isLiked) {
                     cntLike--;
                     userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("0");
                     userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
-                }
-                else {
+                } else {
                     cntLike++;
                     userDatabaseRef.child(postID).child("likeDetails").child(user.getUid()).setValue("1");
                     userDatabaseRef.child(postID).child("likeCount").setValue(String.valueOf(cntLike));
@@ -254,7 +263,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
 
 
                 } else {
-                    Toast.makeText(getApplicationContext(),"SD Card not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "SD Card not found", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -325,7 +334,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 fileName = f_url[0].substring(f_url[0].lastIndexOf('/') + 1, f_url[0].length());
 
                 //Append timestamp to file name
-                fileName = timestamp + "_" + fileName+"."+ext;
+                fileName = timestamp + "_" + fileName + "." + ext;
 
                 //External directory path to save file
                 folder = Environment.getExternalStorageDirectory() + File.separator + "shareAndLearn/";

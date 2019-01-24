@@ -2,51 +2,35 @@ package com.example.sakib23arko.shareandlearn;
 
 public class infoOfComment {
 
-    String userID, mainComment;
-    String userImage;
+    String  userName,commentDetails;
+    String userUid;
     String timestamp;
 
     public infoOfComment() {
-        userID = mainComment = userImage = "";
+        userName=commentDetails = userUid =timestamp= "";
     }
 
 
-    public infoOfComment(String userID, String mainComment, String userImage, String timestamp) {
-        this.userID = userID;
-        this.mainComment = mainComment;
-        this.userImage = userImage;
+    public infoOfComment(String userName, String commentDetails, String userUid, String timestamp) {
+        this.userName=userName;
+        this.commentDetails = commentDetails;
+        this.userUid = userUid;
         this.timestamp = timestamp;
+    }
+
+    public String getcommentDetails() {
+        return commentDetails;
+    }
+
+    public String getUserUid() {
+        return userUid;
     }
 
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getMainComment() {
-        return mainComment;
-    }
-
-    public void setMainComment(String mainComment) {
-        this.mainComment = mainComment;
+    public String getUserName() {
+        return userName;
     }
 }

@@ -9,117 +9,113 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="20dp"
-        android:text="Add title :"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Add title :"
+            android:textSize="20sp"
+            android:textStyle="bold"
 
-        />
+            />
 
-    <EditText
-        android:id="@+id/TitleID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        android:textSize="12sp"
+        <EditText
+            android:id="@+id/TitleID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Type Something Here"
 
-        android:hint="Type Something Here"
-        />
+            android:textSize="12sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Add Description :"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Add Description :"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/DescriptionID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        android:textSize="12sp"
+        <EditText
+            android:id="@+id/DescriptionID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Type Something Here"
 
-        android:hint="Type Something Here"
-        />
+            android:textSize="12sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Add tag :"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Add tag :"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
-    <Spinner android:id="@+id/TagID"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="15dp"
-        android:prompt="@string/spin"
-        android:entries="@array/Tags" />
+        <Spinner
+            android:id="@+id/TagID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:entries="@array/Tags"
+            android:prompt="@string/spin" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="25dp"
-        android:layout_height="1dp"
-        android:backgroundTint="#f9b0b1a8"
-        android:background="#000000"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="25dp"
+            android:background="#000000"
+            android:backgroundTint="#f9b0b1a8" />
 
-    <ProgressBar
-        android:id="@+id/progressBarUserUpleadFileId"
-        android:layout_marginTop="110dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        <ProgressBar
+            android:id="@+id/progressBarUserUpleadFileId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/uploadButtonId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        <Button
+            android:id="@+id/uploadButtonId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="35dp"
 
-        android:layout_marginEnd="30dp"
-        android:drawableLeft="@drawable/ic_file_upload_black_24dp"
-        android:drawablePadding="10dp"
-        android:text="Upload A file"
-        android:textSize="15sp"
-        android:textStyle="bold"
+            android:layout_marginEnd="30dp"
+            android:drawableLeft="@drawable/ic_file_upload_black_24dp"
+            android:drawablePadding="10dp"
+            android:text="Upload A file"
+            android:textSize="15sp"
+            android:textStyle="bold"
 
 
-        />
+            />
 
-    <Button
-        android:id="@+id/ClickHereToPostID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="55dp"
-        android:background="@color/buttoncolor1"
-        android:text="POST"
-        android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/ClickHereToPostID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="55dp"
+            android:background="@color/buttoncolor1"
+            android:text="POST"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
