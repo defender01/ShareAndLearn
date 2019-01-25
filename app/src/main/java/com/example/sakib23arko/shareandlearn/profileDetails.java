@@ -67,6 +67,12 @@ public class profileDetails extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(profileDetails.this, Homepage.class));
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == displayNameTextView) {
 

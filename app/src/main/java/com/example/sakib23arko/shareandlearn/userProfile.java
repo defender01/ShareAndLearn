@@ -150,6 +150,12 @@ public class userProfile extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(userProfile.this, Homepage.class));
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() == null) {

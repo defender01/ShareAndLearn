@@ -1,6 +1,7 @@
 
 package com.example.sakib23arko.shareandlearn;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -83,7 +84,7 @@ public class Homepage extends AppCompatActivity {
 
         createNewPostButton = findViewById(R.id.CreateNewPostID);
         userlist = new ArrayList<>();
-        userListForShow=new ArrayList<>();
+        userListForShow = new ArrayList<>();
         continueReading = findViewById(R.id.continueReadingid);
         //this is for recycler view of user post collection
         homepageRecyclerView = findViewById(R.id.homepageRecyclerViewID);
@@ -104,8 +105,8 @@ public class Homepage extends AppCompatActivity {
                 }
 
                 Collections.reverse(userlist);
-                final int noOfPost=userlist.size();
-                for(int i=0;i<userlist.size();i++){
+                final int noOfPost = userlist.size();
+                for (int i = 0; i < userlist.size(); i++) {
                     final int finalI = i;
                     profileInfoDatabaseRef.child(user.getUid()).child("tagName").child(userlist.get(i).getTag()).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -155,6 +156,11 @@ public class Homepage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 
     private void addDrawerItems() {
