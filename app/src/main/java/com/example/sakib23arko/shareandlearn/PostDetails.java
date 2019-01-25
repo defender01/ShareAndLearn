@@ -161,6 +161,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 final String userUid = user.getUid();
                 commentPostID = commentRef.child(postID).push().getKey();
                 commentRef.child(postID).child(commentPostID).setValue(new infoOfComment(UserName, Comment.getText().toString(), userUid, timeStamp));
+                Comment.setText("");
 //                finish();
 //                startActivity(getIntent());
             }
