@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +60,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class PostDetails extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    private TextView PostTitle, PostTime, Postdetails, postDetailsUserName, editPost;
+    private TextView PostTitle, PostTime, Postdetails, postDetailsUserName, editPost,deletePost;
     private static final int WRITE_REQUEST_CODE = 300;
     private static final String TAG = PostDetails.class.getSimpleName();
     private String TitleName, TimeName, DescriptionName, TagName, downloadFileUrl, ext, userUid, userName, vis, postID;
@@ -68,7 +70,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
     private TextView likeCount;
     private EditText Comment;
     private Button PostComment;
-    private DatabaseReference userDatabaseRef, commentRef;
+    private DatabaseReference userDatabaseRef, commentRef,postRef;
     private FirebaseUser user;
     private int cntLike;
     private boolean isLiked;
@@ -104,6 +106,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         postUserPic = findViewById(R.id.postDetailsProPicID);
         postDetailsUserName = findViewById(R.id.postDetaisTextViewUserID);
         editPost = findViewById(R.id.postDetailsEditPostID);
+        deletePost =findViewById(R.id.postDetailsDeletePostID);
         like = findViewById(R.id.LikeID);
         likeCount = findViewById(R.id.likeCountId);
 
@@ -113,6 +116,7 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         Allcomments = new ArrayList<>();
 
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("postLikes");
+        postRef = FirebaseDatabase.getInstance().getReference("USER");
         user = FirebaseAuth.getInstance().getCurrentUser();
         commentRef = FirebaseDatabase.getInstance().getReference("postComments");
 
@@ -123,8 +127,10 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
         if (downloadFileUrl.isEmpty()) downloadButton.setText("No File ");
         else downloadButton.setText("Download File");
 
-        if (vis.equals("edit"))
+        if (vis.equals("edit")) {
             editPost.setVisibility(View.VISIBLE);
+            deletePost.setVisibility(View.VISIBLE);
+        }
 
         StorageReference userProfileImageRef = FirebaseStorage.getInstance().getReference("profilePictures/" + userUid + ".jpg");
 
@@ -150,6 +156,19 @@ public class PostDetails extends AppCompatActivity implements EasyPermissions.Pe
                 intent.putExtra("vis", "edit");
                 Log.d("postt", "PostDetails " + postID + "  " + TitleName + " " + DescriptionName);
                 startActivity(intent);
+            }
+        });
+
+        deletePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postRef.child(postID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),userProfile.class));
+                    }
+                });
             }
         });
 
