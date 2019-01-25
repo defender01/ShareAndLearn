@@ -98,6 +98,7 @@ public class CreateNewPost extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PleasePostNow();
+                finish();
                 startActivity(new Intent(CreateNewPost.this, Homepage.class));
                 Toast.makeText(CreateNewPost.this, "Successfully Uploaded", Toast.LENGTH_LONG).show();
             }

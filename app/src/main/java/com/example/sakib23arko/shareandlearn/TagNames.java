@@ -44,5 +44,12 @@ public class TagNames extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(TagNames.this, Homepage.class);
+        startActivity(intent);
+    }
 }
 

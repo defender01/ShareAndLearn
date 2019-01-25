@@ -65,12 +65,14 @@ public class CustomAdapter extends BaseAdapter {
         homeID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((Activity)context).finish();
                 context.startActivity(new Intent(context, Homepage.class));
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((Activity)context).finish();
                 context.startActivity(new Intent(context, userProfile.class));
             }
         });
@@ -78,6 +80,7 @@ public class CustomAdapter extends BaseAdapter {
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((Activity)context).finish();
                 context.startActivity(new Intent(context, userProfile.class));
             }
         });
@@ -85,6 +88,7 @@ public class CustomAdapter extends BaseAdapter {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((Activity)context).finish();
                 context.startActivity(new Intent(context,profileDetails.class));
             }
         });
@@ -100,6 +104,7 @@ public class CustomAdapter extends BaseAdapter {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((Activity)context).finish();
                 context.startActivity(new Intent(context, userProfile.class));
             }
         });

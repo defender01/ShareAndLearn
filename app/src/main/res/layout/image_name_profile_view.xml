@@ -81,13 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="Tags" />
-        <TextView
-            android:layout_margin="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notifications"
-            android:id="@+id/NotificationsID"
-            />
 
 
     </LinearLayout>
@@ -106,13 +99,7 @@
         android:orientation="vertical"
         android:padding="10dp"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_margin="15dp"
-            android:layout_height="wrap_content"
-            android:text="Setting"
-            android:id="@+id/SettingID"
-            />
+
 
         <TextView
             android:layout_width="match_parent"
